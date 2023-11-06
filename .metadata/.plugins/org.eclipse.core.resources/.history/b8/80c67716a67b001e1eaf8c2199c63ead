@@ -1,0 +1,9 @@
+/*
+ * fsm_automatic.c
+ *
+ *  Created on: Nov 5, 2023
+ *      Author: mitph
+ */
+#include "fsm_automatic.h"
+
+

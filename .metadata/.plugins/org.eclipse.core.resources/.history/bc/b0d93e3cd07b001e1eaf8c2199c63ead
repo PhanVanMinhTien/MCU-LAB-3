@@ -1,0 +1,91 @@
+/*
+ * button.c
+ *
+ *  Created on: Nov 2, 2023
+ *      Author: mitph
+ */
+
+#include "button.h"
+
+int button1_flag = 0;
+int button2_flag = 0;
+int button3_flag = 0;
+
+int KeyReg01 = NORMAL_STATE;
+int KeyReg11 = NORMAL_STATE;
+int KeyReg21 = NORMAL_STATE;
+int KeyReg31 = NORMAL_STATE;
+int TimerForKeyPress1 = 2000;
+
+int KeyReg02 = NORMAL_STATE;
+int KeyReg12 = NORMAL_STATE;
+int KeyReg22 = NORMAL_STATE;
+int KeyReg32 = NORMAL_STATE;
+int TimerForKeyPress2 = 2000;
+
+int KeyReg03 = NORMAL_STATE;
+int KeyReg13 = NORMAL_STATE;
+int KeyReg23 = NORMAL_STATE;
+int KeyReg33 = NORMAL_STATE;
+int TimerForKeyPress3 = 2000;
+
+// isButtonPressed
+int isButton1Pressed(){
+	if (button1_flag == 1) {
+		button1_flag = 0;
+		return 1;
+	}
+	else return 0;
+}
+int isButton2Pressed(){
+	if (button2_flag == 1) {
+		button2_flag = 0;
+		return 1;
+	}
+	else return 0;
+}
+int isButton3Pressed(){
+	if (button3_flag == 1) {
+		button3_flag = 0;
+		return 1;
+	}
+	else return 0;
+}
+
+void subKeyProcess1(){
+	//TODO
+	button1_flag = 1;
+}
+void subKeyProcess2(){
+	//TODO
+	button2_flag = 1;
+}
+void subKeyProcess3(){
+	//TODO
+	button3_flag = 1;
+}
+
+void getKeyInput1(){
+	KeyReg01 = KeyReg11;
+	KeyReg11 = KeyReg21;
+	KeyReg21 = HAL_GPIO_ReadPin(Button_1_GPIO_Port, Button_1_Pin);
+	if ( (KeyReg0 == KeyReg1) && (KeyReg1 == KeyReg2) ){
+		if (KeyReg3 != KeyReg2){
+			KeyReg3 = KeyReg2;
+			if (KeyReg2 == PRESSED_STATE){
+				//TODO
+				subKeyProcess();
+				TimerForKeyPress = 2000; // 2 giây
+			}
+		}
+		else{
+			TimerForKeyPress--;
+			if (TimerForKeyPress == 0) {
+				// TODO
+				subKeyProcess();
+				TimerForKeyPress = 2000;
+			}
+		}
+	}
+}
+

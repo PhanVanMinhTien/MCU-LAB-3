@@ -1,0 +1,23 @@
+/*
+ * global.h
+ *
+ *  Created on: Nov 5, 2023
+ *      Author: mitph
+ */
+
+#ifndef INC_GLOBAL_H_
+#define INC_GLOBAL_H_
+
+#include "software_timer.h"
+#include "button.h"
+
+// 4 trạng thái của fsm
+#define INIT		1
+#define AUTO_RED	2
+#define AUTO_GRE	3
+#define AUTO_YEL	4
+
+
+extern int status;
+
+#endif /* INC_GLOBAL_H_ */

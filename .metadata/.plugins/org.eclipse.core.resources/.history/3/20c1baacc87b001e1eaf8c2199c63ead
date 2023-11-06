@@ -1,0 +1,57 @@
+/*
+ * fsm_manual.c
+ *
+ *  Created on: Nov 5, 2023
+ *      Author: mitph
+ */
+
+#include "fsm_manual.h"
+
+void fsm_manual_run(){
+	switch (status){
+	case MAN_RED:
+		HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(LED_GRE_GPIO_Port, LED_GRE_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(LED_YEL_GPIO_Port, LED_YEL_Pin, GPIO_PIN_SET);
+
+		if(timer1_flag == 1){
+			status = AUTO_RED;
+			setTimer1(300);
+		}
+		if (isButton1Pressed() == 1){
+			status = MAN_GRE;
+			setTimer1(1000); // 10 giây không nhấn thì quay về auto
+		}
+		break;
+	case MAN_GRE:
+		HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(LED_GRE_GPIO_Port, LED_GRE_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(LED_YEL_GPIO_Port, LED_YEL_Pin, GPIO_PIN_SET);
+
+		if(timer1_flag == 1){
+			status = AUTO_GRE;
+			setTimer1(200);
+		}
+		if (isButton1Pressed() == 1){
+			status = MAN_YEL;
+			setTimer1(1000); // 10 giây không nhấn thì quay về auto
+		}
+		break;
+	case MAN_YEL:
+		HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(LED_GRE_GPIO_Port, LED_GRE_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(LED_YEL_GPIO_Port, LED_YEL_Pin, GPIO_PIN_RESET);
+
+		if(timer1_flag == 1){
+			status = AUTO_YEL;
+			setTimer1(500);
+		}
+		if (isButton1Pressed() == 1){
+			status = MAN_RED;
+			setTimer1(1000); // 10 giây không nhấn thì quay về auto
+		}
+		break;
+	default:
+		break;
+	}
+}

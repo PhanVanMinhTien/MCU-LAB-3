@@ -1,0 +1,217 @@
+/*
+ * button.c
+ *
+ *  Created on: Nov 2, 2023
+ *      Author: mitph
+ */
+
+#include "button.h"
+#include "main.h"
+
+int button1_flag = 0;
+int button2_flag = 0;
+int button3_flag = 0;
+
+int KeyReg01 = NORMAL_STATE;
+int KeyReg11 = NORMAL_STATE;
+int KeyReg21 = NORMAL_STATE;
+int KeyReg31 = NORMAL_STATE;
+int TimerForKeyPress1 = 2000;
+
+int KeyReg02 = NORMAL_STATE;
+int KeyReg12 = NORMAL_STATE;
+int KeyReg22 = NORMAL_STATE;
+int KeyReg32 = NORMAL_STATE;
+int TimerForKeyPress2 = 2000;
+
+int KeyReg03 = NORMAL_STATE;
+int KeyReg13 = NORMAL_STATE;
+int KeyReg23 = NORMAL_STATE;
+int KeyReg33 = NORMAL_STATE;
+int TimerForKeyPress3 = 2000;
+
+// isButtonPressed
+int isButton1Pressed(){
+	if (button1_flag == 1) {
+		button1_flag = 0;
+		return 1;
+	}
+	return 0;
+}
+int isButton2Pressed(){
+	if (button2_flag == 1) {
+		button2_flag = 0;
+		return 1;
+	}
+	return 0;
+}
+int isButton3Pressed(){
+	if (button3_flag == 1) {
+		button3_flag = 0;
+		return 1;
+	}
+	return 0;
+}
+
+void subKeyProcess1(){
+	//TODO
+	//HAL_GPIO_TogglePin(Button_1_GPIO_Port, Button_1_Pin);
+	button1_flag = 1;
+}
+void subKeyProcess2(){
+	//TODO
+	//HAL_GPIO_TogglePin(Button_2_GPIO_Port, Button_2_Pin);
+	button2_flag = 1;
+}
+void subKeyProcess3(){
+	//TODO
+	//HAL_GPIO_TogglePin(Button_3_GPIO_Port, Button_3_Pin);
+	button3_flag = 1;
+}
+
+void getKeyInput1(){
+	KeyReg01 = KeyReg11;
+	KeyReg11 = KeyReg21;
+	KeyReg21 = HAL_GPIO_ReadPin(Button_1_GPIO_Port, Button_1_Pin);
+	if ( (KeyReg01 == KeyReg11) && (KeyReg11 == KeyReg21) ){
+		if (KeyReg31 != KeyReg21){
+			KeyReg31 = KeyReg21;
+			if (KeyReg21 == PRESSED_STATE){
+				//TODO
+				subKeyProcess1();
+
+			}
+		}
+		else{
+			TimerForKeyPress1--;
+			if (TimerForKeyPress1 == 0) {
+				// TODO
+				TimerForKeyPress1 = 2000;
+				if (KeyReg21 == PRESSED_STATE){
+					subKeyProcess1();
+				}
+			}
+		}
+	}
+}
+void getKeyInput2(){
+	KeyReg02 = KeyReg12;
+	KeyReg12 = KeyReg22;
+	KeyReg22 = HAL_GPIO_ReadPin(Button_2_GPIO_Port, Button_2_Pin);
+	if ( (KeyReg02 == KeyReg12) && (KeyReg12 == KeyReg22) ){
+		if (KeyReg32 != KeyReg22){
+			KeyReg32 = KeyReg22;
+			if (KeyReg22 == PRESSED_STATE){
+				//TODO
+				subKeyProcess2();
+
+			}
+		}
+		else{
+			TimerForKeyPress2--;
+			if (TimerForKeyPress2 == 0) {
+				// TODO
+				TimerForKeyPress2 = 2000;
+				if (KeyReg22 == PRESSED_STATE){
+					subKeyProcess2();
+				}
+			}
+		}
+	}
+}
+void getKeyInput3(){
+	KeyReg03 = KeyReg13;
+	KeyReg13 = KeyReg23;
+	KeyReg23 = HAL_GPIO_ReadPin(Button_3_GPIO_Port, Button_3_Pin);
+
+	if ( (KeyReg03 == KeyReg13) && (KeyReg13 == KeyReg23) ){
+		if (KeyReg33 != KeyReg23){
+			KeyReg33 = KeyReg23;
+			if (KeyReg23 == PRESSED_STATE){
+				//TODO
+				subKeyProcess3();
+
+			}
+		}
+		else{
+			TimerForKeyPress3--;
+			if (TimerForKeyPress3 == 0) {
+				// TODO
+				TimerForKeyPress3 = 2000;
+				if (KeyReg23 == PRESSED_STATE){
+					subKeyProcess3();
+				}
+			}
+		}
+	}
+}
+
+void getKeyInputFor3Button(){
+	getKeyInput1();
+	getKeyInput2();
+	getKeyInput3();
+}
+
+///////////////////////////
+#include "button.h"
+#include "main.h"
+#define NUMBER_OF_BUTTONS 3
+
+int KeyReg0[3];
+int KeyReg1[3];
+int KeyReg2[3];
+int KeyReg3[3];
+int TimeOutForKeyPress[3];
+int flag[3];
+uint16_t gpio_pin[3] = {Button_1_Pin, Button_2_Pin, Button_3_Pin};
+GPIO_TypeDef* gpio_port[3] = {Button_1_GPIO_Port, Button_2_GPIO_Port, Button_3_GPIO_Port};
+
+void initializeArrays_for_Button() {
+  for (int i = 0; i < 3; ++i) {
+    KeyReg0[i] = NORMAL_STATE;
+    KeyReg1[i] = NORMAL_STATE;
+    KeyReg2[i] = NORMAL_STATE;
+    KeyReg3[i] = NORMAL_STATE;
+    TimeOutForKeyPress[i] = 500;
+    flag[i] = 0;
+  }
+}
+void subKeyProcess(int index) {
+  //HAL_GPIO_TogglePin(TEST_GPIO_Port, TEST_Pin);
+  flag[index] = 1;
+}
+
+int isButtonPressed(int index){
+  if(flag[index] == 1) {
+    flag[index] = 0;
+    return 1;
+  }
+  return 0;
+}
+
+void getKeyInput() {
+  for(int i = 0; i < 3; i++) {
+    KeyReg0[i] = KeyReg1[i];
+    KeyReg1[i] = KeyReg2[i];
+    KeyReg2[i] = HAL_GPIO_ReadPin(gpio_port[i], gpio_pin[i]);
+
+    if ((KeyReg1[i] == KeyReg0[i]) && (KeyReg1[i] == KeyReg2[i])){
+      if (KeyReg3[i] != KeyReg2[i]){
+        KeyReg3[i] = KeyReg2[i];
+
+        if (KeyReg2[i] == PRESSED_STATE) {
+          subKeyProcess(i);
+        }
+      } else {
+        TimeOutForKeyPress[i]--;
+        if (TimeOutForKeyPress[i] == 0){
+          TimeOutForKeyPress[i] = 200;
+          if (KeyReg2[i] == PRESSED_STATE){
+            subKeyProcess(i);
+          }
+        }
+      }
+    }
+  }
+}
+

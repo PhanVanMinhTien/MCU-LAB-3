@@ -1,0 +1,12 @@
+/*
+ * fsm_manual.c
+ *
+ *  Created on: Nov 5, 2023
+ *      Author: mitph
+ */
+
+#include "fsm_manual.h"
+
+void fsm_manual_run(){
+
+}

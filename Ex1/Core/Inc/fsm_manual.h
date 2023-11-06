@@ -1,0 +1,20 @@
+/*
+ * fsm_manual.h
+ *
+ *  Created on: Nov 5, 2023
+ *      Author: mitph
+ */
+
+#ifndef INC_FSM_MANUAL_H_
+#define INC_FSM_MANUAL_H_
+
+
+#include "global.h"
+#include "fsm_automatic.h"
+void fsm_manual_run();
+void updateBufferMode2();
+void updateBufferMode3();
+void updateBufferMode4();
+void set_led();
+
+#endif /* INC_FSM_MANUAL_H_ */
