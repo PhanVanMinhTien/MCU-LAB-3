@@ -9,6 +9,7 @@
 
 int status = 0;
 
+/*
 void display7SEG(int num){
 	if (num == 0){
 		HAL_GPIO_WritePin(a_GPIO_Port, a_Pin, GPIO_PIN_RESET);
@@ -202,7 +203,7 @@ void update7SEG(int led_index){
 void updateBufferMode1(int status){
 	switch(status){
 	case RED1_GRE2:
-		led_buffer[0] = RED - counter0; // 5 - 0 5 - 1 5 - 2
+		led_buffer[0] = RED - counter0;
 		led_buffer[2] = led_buffer[0];
 		led_buffer[1] = GREEN - counter0;
 		led_buffer[3] = led_buffer[1];
@@ -244,15 +245,7 @@ void updateBufferMode1(int status){
 		break;
 	}
 }
-void clear7SEG(){
-	HAL_GPIO_WritePin(a_GPIO_Port, a_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(b_GPIO_Port, b_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(c_GPIO_Port, c_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(d_GPIO_Port, d_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(e_GPIO_Port, e_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(f_GPIO_Port, f_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(g_GPIO_Port, g_Pin, GPIO_PIN_RESET);
-}
+
 void updateBufferMode2(){
 	led_buffer[0] = 2;
 	led_buffer[1] = 2;
@@ -271,3 +264,4 @@ void updateBufferMode4(){
 	led_buffer[2] = GREEN/10;
 	led_buffer[3] = GREEN % 10;
 }
+ */

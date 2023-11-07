@@ -5,7 +5,7 @@
  *      Author: mitph
  */
 #include "fsm_automatic.h"
-
+#include "led_display.h"
 int GREEN = 3;
 int RED = 5;
 int YEL = 2;
@@ -19,14 +19,7 @@ void fsm_automatic_run(){
 	case INIT:
 		//TODO
 		status = MODE1;
-		setTimer1(10);
-		setTimer3(10);
-		setTimer2(10);
-		setTimer4(10);
-		break;
 
-	case MODE1:
-		//TODO
 		HAL_GPIO_WritePin(RED_HOR_GPIO_Port, RED_HOR_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(GRE_HOR_GPIO_Port, GRE_HOR_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(YEL_HOR_GPIO_Port, YEL_HOR_Pin, GPIO_PIN_SET);
@@ -34,33 +27,38 @@ void fsm_automatic_run(){
 		HAL_GPIO_WritePin(GRE_VER_GPIO_Port, GRE_VER_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(YEL_VER_GPIO_Port, YEL_VER_Pin, GPIO_PIN_SET);
 
+
+//		setTimer1(10);
+//		setTimer3(10);
+//		setTimer2(10);
+//		setTimer4(500);
+		break;
+
+	case MODE1:
+		//TODO
 		status = RED1_GRE2;
-		setTimer1(GREEN * 1000);		//set Timer1 = duration RED
+		setTimer0(GREEN * 1000);		//set Timer1 = duration RED
+		setTimer1(1000);
+		setTimer2(500);
 		break;
 	case RED1_GRE2:
 		//TODO
 		setRED1();
 		setGRE2();
-		//chuyển trạng thái
-		if (timer1_flag == 1){
+		if (timer0_flag == 1){
 			status = RED1_YEL2;
-			setTimer1(YEL * 1000);
+			setTimer0(YEL * 1000);
 		}
-		if (timer3_flag == 1){
+		if (timer1_flag == 1){
 			updateBufferMode1(status);
-			setTimer3(1000);
+			setTimer1(1000);
 		}
 		if (timer2_flag == 1){
 			update7SEG(led_index);
 			setTimer2(100);
-			if (led_index >= 3) led_index = 0;
-			else led_index++;
+//			if (led_index >= 3) led_index = 0;
+//			else led_index++;
 		}
-//		if (timer4_flag == 1){
-//			setTimer4(1000);
-//			counter0--;
-//		}
-
 		if (isButton1Pressed() == 1){
 			status = MODE2;
 		}
@@ -69,24 +67,20 @@ void fsm_automatic_run(){
 	case RED1_YEL2:
 		setRED1();
 		setYEL2();
-
-		if (timer1_flag == 1){
+		if (timer0_flag == 1){
 			status = GRE1_RED2;
-			setTimer1(GREEN * 1000);
+			setTimer0(GREEN * 1000);
 		}
-
-		if (timer3_flag == 1){
-			setTimer3(1000);
+		if (timer1_flag == 1){
+			setTimer1(1000);
 			updateBufferMode1(status);
 		}
-
 		if (timer2_flag == 1){
 			update7SEG(led_index);
 			setTimer2(100);
-			if (led_index >= 3) led_index = 0;
-			else led_index++;
+//			if (led_index >= 3) led_index = 0;
+//			else led_index++;
 		}
-
 		if (isButton1Pressed() == 1){
 			status = MODE2;
 		}
@@ -96,23 +90,20 @@ void fsm_automatic_run(){
 		//TODO
 		setGRE1();
 		setRED2();
-
-		//chuyển trạng thái
-		if (timer1_flag == 1){
+		if (timer0_flag == 1){
 			status = YEL1_RED2;
-			setTimer1(YEL * 1000);
+			setTimer0(YEL * 1000);
 		}
-		if (timer3_flag == 1){
+		if (timer1_flag == 1){
 			updateBufferMode1(status);
-			setTimer3(1000);
+			setTimer1(1000);
 		}
 		if (timer2_flag == 1){
 			setTimer2(100);
 			update7SEG(led_index);
-			if (led_index >= 3) led_index = 0;
-			else led_index++;
+//			if (led_index >= 3) led_index = 0;
+//			else led_index++;
 		}
-
 		if (isButton1Pressed() == 1){
 			status = MODE2;
 		}
@@ -122,33 +113,25 @@ void fsm_automatic_run(){
 		//TODO
 		setYEL1();
 		setRED2();
-		//chuyển trạng thái
-		if (timer1_flag == 1){
+		if (timer0_flag == 1){
 			status = RED1_GRE2;
-			setTimer1(GREEN * 1000);
+			setTimer0(GREEN * 1000);
 		}
-
-		if (timer3_flag == 1){
-			setTimer3(1000);
+		if (timer1_flag == 1){
+			setTimer1(1000);
 			updateBufferMode1(status);
 		}
-
 		if (timer2_flag == 1){
 			setTimer2(100);
 			update7SEG(led_index);
-
-			if (led_index >= 3) led_index = 0;
-			else led_index++;
+//			if (led_index >= 3) led_index = 0;
+//			else led_index++;
 		}
-
 		if (isButton1Pressed() == 1){
 				status = MODE2;
 		}
-//		counter0 = 0;
-//		counter1 = 0;
-//		counter2 = 0;
-//		counter3 = 0;
 		break;
+
 	default:
 		break;
 	}

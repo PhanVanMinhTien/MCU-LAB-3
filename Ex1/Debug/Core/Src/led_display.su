@@ -1,0 +1,14 @@
+led_display.c:9:6:display7SEG	16	static
+led_display.c:104:6:setRED1	8	static
+led_display.c:109:6:setRED2	8	static
+led_display.c:114:6:setGRE1	8	static
+led_display.c:119:6:setGRE2	8	static
+led_display.c:124:6:setYEL1	8	static
+led_display.c:129:6:setYEL2	8	static
+led_display.c:135:6:set_led	16	static
+led_display.c:154:6:led_blinky	16	static
+led_display.c:182:6:update7SEG	16	static
+led_display.c:227:6:updateBufferMode1	16	static
+led_display.c:273:6:updateBufferMode2	4	static
+led_display.c:279:6:updateBufferMode3	4	static
+led_display.c:285:6:updateBufferMode4	4	static

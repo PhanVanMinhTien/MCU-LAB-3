@@ -32,10 +32,8 @@ int TimerForKeyPress3 = 500;
 
 void subKeyProcess1(){
 	//TODO
-	//HAL_GPIO_TogglePin(Button_1_GPIO_Port, Button_1_Pin);
 	button1_flag = 1;
 }
-// isButtonPressed
 int isButton1Pressed(){
 	if (button1_flag == 1) {
 		button1_flag = 0;
@@ -57,46 +55,31 @@ int isButton3Pressed(){
 	}
 	return 0;
 }
-
-
 void subKeyProcess2(){
 	//TODO
-	//HAL_GPIO_TogglePin(Button_2_GPIO_Port, Button_2_Pin);
 	button2_flag = 1;
 }
 void subKeyProcess3(){
 	//TODO
-	//HAL_GPIO_TogglePin(Button_3_GPIO_Port, Button_3_Pin);
 	button3_flag = 1;
 }
-
 void getKeyInput1(){
 	KeyReg01 = KeyReg11;
 	KeyReg11 = KeyReg21;
 	KeyReg21 = HAL_GPIO_ReadPin(Button_1_GPIO_Port, Button_1_Pin);
-
-	if ( (KeyReg01 == KeyReg11) && (KeyReg11 == KeyReg21) )
-	{
-		if (KeyReg31 != KeyReg21)
-		{
+	if ((KeyReg01 == KeyReg11) && (KeyReg11 == KeyReg21)){
+		if (KeyReg31 != KeyReg21){
 			KeyReg31 = KeyReg21;
-
 			if (KeyReg21 == PRESSED_STATE){
 				//TODO
 				subKeyProcess1();
-
 			}
-		}
-
-		else
-		{
+		}else{
 			TimerForKeyPress1--;
-			if (TimerForKeyPress1 == 0)
-			{
+			if (TimerForKeyPress1 == 0){
 				// TODO
 				TimerForKeyPress1 = 200;
-				if (KeyReg21 == PRESSED_STATE)
-				{
+				if (KeyReg21 == PRESSED_STATE){
 					subKeyProcess1();
 				}
 			}
@@ -113,12 +96,10 @@ void getKeyInput2(){
 			if (KeyReg22 == PRESSED_STATE){
 				//TODO
 				subKeyProcess2();
-
 			}
-		}
-		else{
+		}else{
 			TimerForKeyPress2--;
-			if (TimerForKeyPress2 == 0) {
+			if (TimerForKeyPress2 == 0){
 				// TODO
 				TimerForKeyPress2 = 200;
 				if (KeyReg22 == PRESSED_STATE){
@@ -132,17 +113,14 @@ void getKeyInput3(){
 	KeyReg03 = KeyReg13;
 	KeyReg13 = KeyReg23;
 	KeyReg23 = HAL_GPIO_ReadPin(Button_3_GPIO_Port, Button_3_Pin);
-
 	if ( (KeyReg03 == KeyReg13) && (KeyReg13 == KeyReg23) ){
 		if (KeyReg33 != KeyReg23){
 			KeyReg33 = KeyReg23;
 			if (KeyReg23 == PRESSED_STATE){
 				//TODO
 				subKeyProcess3();
-
 			}
-		}
-		else{
+		}else{
 			TimerForKeyPress3--;
 			if (TimerForKeyPress3 == 0) {
 				// TODO
