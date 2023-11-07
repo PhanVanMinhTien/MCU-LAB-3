@@ -20,12 +20,12 @@ void fsm_automatic_run(){
 		//TODO
 		status = MODE1;
 
-		HAL_GPIO_WritePin(RED_HOR_GPIO_Port, RED_HOR_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(GRE_HOR_GPIO_Port, GRE_HOR_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(YEL_HOR_GPIO_Port, YEL_HOR_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(RED_VER_GPIO_Port, RED_VER_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(GRE_VER_GPIO_Port, GRE_VER_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(YEL_VER_GPIO_Port, YEL_VER_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(RED_HOR_GPIO_Port, RED_HOR_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GRE_HOR_GPIO_Port, GRE_HOR_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(YEL_HOR_GPIO_Port, YEL_HOR_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(RED_VER_GPIO_Port, RED_VER_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(GRE_VER_GPIO_Port, GRE_VER_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(YEL_VER_GPIO_Port, YEL_VER_Pin, GPIO_PIN_SET);
 
 
 //		setTimer1(10);
@@ -38,8 +38,8 @@ void fsm_automatic_run(){
 		//TODO
 		status = RED1_GRE2;
 		setTimer0(GREEN * 1000);		//set Timer1 = duration RED
-		setTimer1(10);
-		setTimer2(10);
+		setTimer1(1000);
+		setTimer2(500);
 		break;
 	case RED1_GRE2:
 		//TODO
